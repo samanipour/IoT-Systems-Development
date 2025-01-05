@@ -66,13 +66,17 @@ DHT22
 #include <DHT.h>
 
 // Define the DHT sensor type and pin
-#define DHTPIN 2     // Pin connected to the DATA pin (D4 on Wemos D1 R1, D2 on NodeMCU)
-#define DHTTYPE DHT22   // DHT22 sensor
+// #define DHTPIN 2     // Pin connected to the DATA pin (D14 on Wemos D1 R1, D2 on NodeMCU)
+#define DHTTYPE DHT11   // DHT11 sensor
+// DHT Sensor
+uint8_t DHTPin = D14;
 
-DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor
+DHT dht(DHTPin, DHTTYPE); // Initialize DHT sensor
 
 void setup() {
   Serial.begin(115200);   // Start serial communication at 115200 baud
+  delay(100);
+  pinMode(DHTPin, INPUT);
   dht.begin();            // Initialize the DHT sensor
   delay(2000);            // Wait for sensor to stabilize
 }

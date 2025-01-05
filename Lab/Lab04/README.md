@@ -65,9 +65,10 @@ const char* mqtt_server = "demo.thingsboard.io";  // For ThingsBoard Cloud
 const char* mqtt_user = "your_device_access_token";  // Device access token
 const char* mqtt_topic = "v1/devices/me/telemetry"; // Default telemetry topic
 
-// DHT22 Sensor settings
-#define DHTPIN 2         // Pin connected to DHT22 data pin (GPIO2)
-#define DHTTYPE DHT22    // Define the DHT sensor type
+// DHT Sensor settings
+uint8_t DHTPin = D14;
+#define DHTTYPE DHT11    // Define the DHT sensor type
+DHT dht(DHTPin, DHTTYPE); // Initialize DHT sensor
 
 // LED Pin settings
 #define GREEN_LED_PIN 5  // GPIO5 (D1)
@@ -93,8 +94,11 @@ void setup() {
   // Initialize MQTT client
   client.setServer(mqtt_server, 1883);
   
-  // Initialize DHT22
+  // Initialize DHT
+  delay(100);
+  pinMode(DHTPin, INPUT);
   dht.begin();
+  delay(100);
 
   // Initialize LED pins
   pinMode(GREEN_LED_PIN, OUTPUT);
